@@ -61,7 +61,7 @@ class DynamicIntArrayTest {
 
     private DynamicIntArray createArray(int numOfElements) {
         DynamicIntArray array = new DynamicIntArray();
-        for (int i = 0; i < numOfElements; ++i)
+        for (int i = 0; i < numOfElements; i++)
         {
             array.add(i);
         }
