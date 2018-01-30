@@ -3,25 +3,27 @@ package com.codecool.dynamicArrayDojo;
 // put your code here!
 public class DynamicIntArray {
 
-    int size = 5;
-    int[] dynamicArray;
-    int index;
+    private static final int SIZE_FACTOR = 5;
+    private int size;
+    private Object[] dynamicArray;
+    private int index;
 
 
     public DynamicIntArray() {
 
-        dynamicArray = new int[size];
+        this.size = SIZE_FACTOR;
+        this.dynamicArray = new Object[SIZE_FACTOR];
     }
 
 
     public DynamicIntArray(int size) {
 
         this.size = size;
-        dynamicArray = new int[size];
+        dynamicArray = new Object[size];
     }
 
 
-    public void add(int element) {
+    public void add(Object element) {
 
         if(ifFreeSpace()) {
             increaseArraySize();
@@ -38,24 +40,35 @@ public class DynamicIntArray {
     public void increaseArraySize() {
 
         this.size = size + 1;
-        int[] temp = new int[size];
+        Object[] temp = new Object[size];
 
         for(int i=0;i<dynamicArray.length;i++) {
-            temp[i]=dynamicArray[i];
+            temp[i]= dynamicArray[i];
         }
         this.dynamicArray = temp;
     }
 
+    public Object get(int i) throws Exception {
 
-    public void insert(int position, int element) {
+        if(i>index - 1) {
+            throw new Exception("ArrayIndexOutOfBound");
+        } if (i<0) {
+            throw new Exception("Negative Value");
+        } else {
+            return this.dynamicArray[i];
+        }
+    }
+
+
+    public void insert(int position, Object element) {
 
         if(position>=size) {
             add(element);
         } else {
             this.size = size + 1;
             this.index = 0;
-            int[] temp = new int[size];
-            for(int value: this.dynamicArray) {
+            Object[] temp = new Object[size];
+            for(Object value: this.dynamicArray) {
                 if(index == position) {
                     temp[index++] = element;
                 }
@@ -66,11 +79,11 @@ public class DynamicIntArray {
     }
 
 
-    public void remove(int element) {
+    public void remove(Object element) {
 
-        int[] temp = new int[--size];
         int i = 0;
-        for(int value : dynamicArray) {
+        Object[] temp = new Object[--size];
+        for(Object value : dynamicArray) {
             if(value!= element) {
                 temp[i++] = value;
             }
@@ -84,7 +97,7 @@ public class DynamicIntArray {
 
 
         StringBuilder builder = new StringBuilder();
-        for (int value : this.dynamicArray) {
+        for (Object value : this.dynamicArray) {
             builder.append(" " + value);
         }
         return builder.toString();
